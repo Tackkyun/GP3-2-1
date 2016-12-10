@@ -35,6 +35,8 @@ public class csHacPageRunButton : MonoBehaviour {
 				hackPageObject.GetComponent<csHackPage>().isClickRunButtonUp = true;
 			}
 		}
+
+		transform.parent.parent.FindChild("MainLogo").GetComponent<csButtonAction>().OnMouseOver();
 	}
 
 	void OnMouseExit()
@@ -45,5 +47,18 @@ public class csHacPageRunButton : MonoBehaviour {
 			hackPageObject.GetComponent<csHackPage>().isClickRunButtonDown = false;
 			hackPageObject.GetComponent<csHackPage>().isClickRunButtonUp = true;
 		}
+
+		transform.parent.parent.FindChild("MainLogo").GetComponent<csButtonAction>().OnMouseExit();
+		transform.parent.parent.FindChild("MainLogoNomal").GetComponent<csButtonAction>().OnMouseExit();
+	}
+
+	void OnMouseDown() {
+		transform.parent.parent.FindChild("MainLogo").GetComponent<csButtonAction>().OnMouseDown();
+		transform.parent.parent.FindChild("MainLogoNomal").GetComponent<csButtonAction>().OnMouseDown();
+	}
+
+	void OnMouseUp() {
+		transform.parent.parent.FindChild("MainLogo").GetComponent<csButtonAction>().OnMouseUp();
+		transform.parent.parent.FindChild("MainLogoNomal").GetComponent<csButtonAction>().OnMouseUp();
 	}
 }

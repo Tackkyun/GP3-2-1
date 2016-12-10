@@ -6,6 +6,8 @@ public class csSetActiveButton : MonoBehaviour {
 	bool isActive = false;
 	bool isReady = false;
 
+	bool isMouseExit = false;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -25,9 +27,17 @@ public class csSetActiveButton : MonoBehaviour {
 		isReady = true;
 	}
 
-	void OnMouseDown()
-	{
+	void OnMouseDown() {
 		if (transform.parent.GetComponent<csSetHackPage>().isincreased == true && isReady)
+		{
+			transform.parent.parent.FindChild("MainLogo").GetComponent<csButtonAction>().OnMouseDown();
+			transform.parent.parent.FindChild("MainLogoNomal").GetComponent<csButtonAction>().OnMouseDown();
+		}
+	}
+
+	public void OnMouseUp()
+	{
+		if (transform.parent.GetComponent<csSetHackPage>().isincreased == true && isReady && !isMouseExit)
 		{
 			GameObject.Find("MainLogo").GetComponent<SpriteRenderer>().sortingOrder = 9;
 			transform.parent.GetComponent<csSetHackPage>().isMinimize = true;
@@ -35,6 +45,25 @@ public class csSetActiveButton : MonoBehaviour {
 			GameObject.Find("FolderPage").GetComponent<csFolderMonitor>().isActive = true;
 			isActive = false;
 			isReady = false;
+
+			transform.parent.parent.FindChild("MainLogo").GetComponent<csButtonAction>().OnMouseUp();
+			transform.parent.parent.FindChild("MainLogoNomal").GetComponent<csButtonAction>().OnMouseUp();
+		}
+
+		isMouseExit = false;
+	}
+
+	void OnMouseOver() {
+		transform.parent.parent.FindChild("MainLogoNomal").GetComponent<csButtonAction>().OnMouseOver();
+	}
+
+	void OnMouseExit() {
+		if (transform.parent.GetComponent<csSetHackPage>().isincreased == true && isReady)
+		{
+			transform.parent.parent.FindChild("MainLogo").GetComponent<csButtonAction>().OnMouseExit();
+			transform.parent.parent.FindChild("MainLogoNomal").GetComponent<csButtonAction>().OnMouseExit();
+
+			isMouseExit = true;
 		}
 	}
 }

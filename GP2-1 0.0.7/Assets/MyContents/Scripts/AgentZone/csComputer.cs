@@ -47,6 +47,7 @@ public class csComputer : MonoBehaviour {
 		if (col.transform.tag != "AgentZoneUnit") return;
 		if (col.gameObject.name == "Agent")
 		{
+			GameObject.Find("SetPage").transform.FindChild("laptop_UI_logo_hacking").GetComponent<csSetActiveButton>().OnMouseUp();
 			GameObject.Find("sockets").GetComponent<csSockets>().HideActiveButton();
 			GameObject.Find("HackPageSprite").GetComponent<csHackPage>().isAtted = true;
 		}

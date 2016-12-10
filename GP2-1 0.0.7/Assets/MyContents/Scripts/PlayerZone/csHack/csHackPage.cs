@@ -11,7 +11,7 @@ public class csHackPage : MonoBehaviour {
 
 	public bool isSuccess = false;
 	bool isFail = false;
-	bool isDcrease = false;
+	public bool isDcrease = false;
 	bool isMouseUp = false;
 	bool isincreased = false;
 	bool isMinimize = false;
@@ -70,9 +70,6 @@ public class csHackPage : MonoBehaviour {
 			{
 				ErrorTimeDecrease();
 			}
-
-
-
 
 			//성공여부 및 시간 출력
 			if (isSuccess)

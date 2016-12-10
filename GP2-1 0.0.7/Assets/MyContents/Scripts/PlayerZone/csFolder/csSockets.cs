@@ -7,6 +7,8 @@ public class csSockets : MonoBehaviour {
 
 	public GameObject MainLogo;
 	public GameObject MainLogo2;
+	public GameObject MainLogo3;
+	public GameObject MainLogo4;
 
 	public int usedItem = 0;
 
@@ -14,6 +16,8 @@ public class csSockets : MonoBehaviour {
 	void Start () {
 		CreateActiveButton();
 		activeButton.SetActive(false);
+
+		HideActiveButton();
 	}
 	
 	// Update is called once per frame
@@ -32,12 +36,16 @@ public class csSockets : MonoBehaviour {
 	public void SetActiveButton() {
 		MainLogo.SetActive(true);
 		MainLogo2.SetActive(true);
+		MainLogo3.SetActive(true);
+		MainLogo4.SetActive(true);
 		activeButton.SetActive(true);
 	}
 
 	public void HideActiveButton() {
 		MainLogo.SetActive(false);
 		MainLogo2.SetActive(false);
+		MainLogo3.SetActive(false);
+		MainLogo4.SetActive(false);
 		activeButton.SetActive(false);
 	}
 
