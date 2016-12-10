@@ -143,17 +143,11 @@ public class csPlayer : MonoBehaviour {
 
 	//UCR상태에서의 상태변화.
 	void ControlStateUCR() {
-		if (Input.GetKeyDown(KeyCode.Q))
+		if (Input.GetKeyDown(KeyCode.E))
 		{
-			if (hitName != null)
-			{
-				playerState = PlayerState.UsingComputerRotState;
-				hitName = null;
-			}
-			else {
-				playerState = PlayerState.WalkState;
-				transform.localRotation = WalkRot;
-			}
+			playerState = PlayerState.WalkState;
+			transform.localRotation = WalkRot;
+			hitName = null;
 		}
 		else if (Input.GetKeyDown(KeyCode.Tab) && hitName != null)
 		{
@@ -270,6 +264,10 @@ public class csPlayer : MonoBehaviour {
 	}
 
 	void ControlStateUCKM() {
+		EdgeMapMonitor.SetActive(false);
+		EdgeFolderMonitor.SetActive(false);
+		EdgeCommuMonitor.SetActive(false);
+
 		if (Input.GetKeyDown(KeyCode.Tab))
 		{
 			rotLock = false;

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class csControlMap : MonoBehaviour {
 
+	public float moveSpeed = 1.0f;
 	public GameObject MapCamera;
 
 	// Use this for initialization
@@ -26,8 +27,8 @@ public class csControlMap : MonoBehaviour {
 			}
 
 			//카메라 이동
-			MapCamera.transform.Translate(Vector3.right * Time.deltaTime * Input.GetAxis("Horizontal") * Mathf.Pow(MapCamera.GetComponent<Camera>().orthographicSize, 1.5f) / 30.0f);
-			MapCamera.transform.Translate(Vector3.up * Time.deltaTime * Input.GetAxis("Vertical") * Mathf.Pow(MapCamera.GetComponent<Camera>().orthographicSize, 1.5f) / 30.0f);
+			MapCamera.transform.Translate(Vector3.right * Time.deltaTime * Input.GetAxis("Horizontal") * Mathf.Pow(MapCamera.GetComponent<Camera>().orthographicSize, 1.5f) / 30.0f * moveSpeed);
+			MapCamera.transform.Translate(Vector3.up * Time.deltaTime * Input.GetAxis("Vertical") * Mathf.Pow(MapCamera.GetComponent<Camera>().orthographicSize, 1.5f) / 30.0f * moveSpeed);
 		}
 	}
 }

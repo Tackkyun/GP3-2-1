@@ -29,6 +29,7 @@ public class csSetActiveButton : MonoBehaviour {
 	{
 		if (transform.parent.GetComponent<csSetHackPage>().isincreased == true && isReady)
 		{
+			GameObject.Find("MainLogo").GetComponent<SpriteRenderer>().sortingOrder = 9;
 			transform.parent.GetComponent<csSetHackPage>().isMinimize = true;
 			//transform.parent.parent.FindChild("HackPage").FindChild("HackPageSprite").GetComponent<csHackPage>().isActive = true; //hackpage활성화
 			GameObject.Find("FolderPage").GetComponent<csFolderMonitor>().isActive = true;

@@ -6,7 +6,9 @@ public class csHackPage : MonoBehaviour {
 	public bool isActive = false; //시작시 true
 	public bool isAtted = false; //끝낼시 true
 
-	float hackPoint;
+	public int usedItem = 1;
+	public float[] hackPoint;
+
 	public bool isSuccess = false;
 	bool isFail = false;
 	bool isDcrease = false;
@@ -20,7 +22,7 @@ public class csHackPage : MonoBehaviour {
 
 	float errorTime;
 
-	TextMesh errorTimeText;
+	public TextMesh errorTimeText;
 
 	float marginOfError;
 
@@ -29,10 +31,14 @@ public class csHackPage : MonoBehaviour {
 	public bool isClickRunButtonUp = false;
 	public bool isClickRunButtonDown = false;
 
+	public bool isUseItem = false;
+
+	float failReadTime = 2.0f;
+	float afterTime = 0.0f;
+
 	// Use this for initialization
 	void Start () {
 		EndPage();
-		errorTimeText = transform.parent.FindChild("ErrorTime").GetComponent<TextMesh>();
 		transform.parent.FindChild("Point").position = transform.parent.parent.FindChild("StartPoint").position;
 	}
 	
@@ -53,6 +59,7 @@ public class csHackPage : MonoBehaviour {
 			{
 				isMouseUp = true;
 				isDcrease = false;
+				afterTime = 0.0f;
 			}
 			else {
 				isClickRunButtonUp = false;
@@ -63,6 +70,8 @@ public class csHackPage : MonoBehaviour {
 			{
 				ErrorTimeDecrease();
 			}
+
+
 
 
 			//성공여부 및 시간 출력
@@ -89,13 +98,16 @@ public class csHackPage : MonoBehaviour {
 		}
 	}
 
-	void Init() {
+	public void Init() {
 		//성공포인트 생성
 		CreateHackingPoint();
 		//errorTime갱신
 		errorTime = setErrorTime;
 		//point위치 초기화
 		transform.parent.FindChild("Point").localEulerAngles = Vector3.zero;
+		errorTimeText.text = "Time";
+		isClickRunButtonUp = false;
+		isClickRunButtonDown = false;
 
 		isSuccess = false;
 		isDcrease = false;
@@ -103,47 +115,65 @@ public class csHackPage : MonoBehaviour {
 		isFail = false;
 		isMinimize = false;
 		isAtted = false;
+		usedItem = 1;
 	}
 
 	//성공포인트 생성
 	void CreateHackingPoint() {
-		hackPoint = Random.Range(0.0f, 360.0f);
+		hackPoint = new float[usedItem];
+
+		for (int i = 0; i < usedItem; i++)
+		{
+			hackPoint[i] = Random.Range(0.0f, 360.0f);
+		}
 	}
 
 	void CheckSuecces() {
-		//point의 현재 각도 구하기. up이 0도
-		Vector3 v = transform.position - transform.parent.FindChild("Point").position;
-		float pointRot = Mathf.Atan2(-v.x, v.y) * Mathf.Rad2Deg + 180.0f;
+		bool isCover = false;
 
-		float checkRot = pointRot + (360.0f - hackPoint);
+		for (int i = 0; i < hackPoint.Length; i++)
+		{
+			//point의 현재 각도 구하기. up이 0도
+			Vector3 v = transform.position - transform.parent.FindChild("Point").position;
+			float pointRot = Mathf.Atan2(-v.x, v.y) * Mathf.Rad2Deg + 180.0f;
 
-		if (checkRot > 180) {
-			checkRot = Mathf.Abs(checkRot - 360);
+			float checkRot = pointRot + (360.0f - hackPoint[i]);
+
+			if (checkRot > 180)
+			{
+				checkRot = Mathf.Abs(checkRot - 360);
+			}
+
+			marginOfError = checkRot;
+
+
+			//성공여부
+			if (pointRot >= hackPoint[i] - successRange / 2.0f && pointRot <= hackPoint[i] + successRange / 2.0f)
+			{
+				isSuccess = true;
+				break;
+			}
+			else if (pointRot >= hackPoint[i] - semiSuccessRange / 2.0f && pointRot <= hackPoint[i] + semiSuccessRange / 2.0f)
+			{
+				isSuccess = false;
+				isCover = true;
+			}
+			else {
+				isSuccess = false;
+			}
 		}
 
-		marginOfError = checkRot;
-
-
-		//성공여부
-		if (pointRot >= hackPoint - successRange / 2.0f && pointRot <= hackPoint + successRange / 2.0f)
+		if (isCover)
 		{
-			isSuccess = true;
-		}
-		else if (pointRot >= hackPoint - semiSuccessRange / 2.0f && pointRot <= hackPoint + semiSuccessRange / 2.0f)
-		{
-			isSuccess = false;
-			StartCoroutine(ErrorTime(2.0f));
+			afterTime += Time.deltaTime;
+			if (afterTime >= failReadTime) {
+				isDcrease = true;
+			}
+			
 		}
 		else {
-			isSuccess = false;
-			StartCoroutine(ErrorTime(0.0f));
+			isDcrease = true;
 		}
-	}
-
-	//대기시간
-	IEnumerator ErrorTime(float delay) {
-		yield return new WaitForSeconds(delay);
-		isDcrease = true;
 	}
 
 	//시간 감소
@@ -173,6 +203,8 @@ public class csHackPage : MonoBehaviour {
 			Init();
 			isMinimize = false;
 			isincreased = false;
+			if(GameObject.Find("MainLogo") != null)
+				GameObject.Find("MainLogo").GetComponent<SpriteRenderer>().sortingOrder = 9;
 		}
 	}
 

@@ -74,8 +74,14 @@ public class csSetPageMouseOver : MonoBehaviour {
 				Debug.Log("Error");
 			}
 			transform.parent.parent.parent.FindChild("HackPage").FindChild("HackPageSprite").GetComponent<csHackPage>().isActive = true;
+			transform.parent.parent.parent.FindChild("HackPage").FindChild("HackPageSprite").GetComponent<csHackPage>().usedItem += GameObject.Find("sockets").GetComponent<csSockets>().usedItem;
+
+			//transform.parent.parent.parent.FindChild("HackPage").FindChild("HackPageSprite").GetComponent<csHackPage>().Init();
 			isActive = false;
 			isReady = false;
+
+			GameObject.Find("sockets").GetComponent<csSockets>().usedItem = 0;
+			GameObject.Find("sockets").GetComponent<csSockets>().DestroyItem();
 		}
 	}
 }

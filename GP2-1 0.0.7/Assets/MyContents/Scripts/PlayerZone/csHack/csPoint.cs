@@ -6,6 +6,8 @@ public class csPoint : MonoBehaviour {
 	public float moveSpeed = 1.0f;
 	float dir;
 
+	public bool isReady = true;
+
 	Transform middlePos;
 
 	// Use this for initialization
@@ -15,7 +17,10 @@ public class csPoint : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		dir = Input.GetAxis("Horizontal");
-		transform.RotateAround(middlePos.position, transform.forward, Time.deltaTime * moveSpeed * dir);
+		if (isReady)
+		{
+			dir = Input.GetAxis("Horizontal");
+			transform.RotateAround(middlePos.position, transform.forward, Time.deltaTime * moveSpeed * dir);
+		}
 	}
 }

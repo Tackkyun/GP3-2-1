@@ -15,6 +15,8 @@ public class csMonitorLeft : MonoBehaviour {
 	public bool Rot;
 	public float rotData = 60.0f;
 
+	bool startOnce = true;
+
 	// Use this for initialization
 	void Start () {
 		socketPos = new GameObject[6];
@@ -35,6 +37,12 @@ public class csMonitorLeft : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if (startOnce) {
+			//파일하나 생성
+			createFile(null);
+			startOnce = false;
+		}
+
 		if (Input.GetKeyDown(KeyCode.P)) {
 			createFolder(null);
 		}
@@ -102,6 +110,8 @@ public class csMonitorLeft : MonoBehaviour {
 									socketPos[i].transform.eulerAngles.y + 180.0f,
 									socketPos[i].transform.eulerAngles.z)
 					);
+				thisInFolder.GetComponent<csFolder>().socket[i].transform.parent = socketPos[i].transform;
+
 				return thisInFolder.GetComponent<csFolder>().socket[i];
 			}
 			else if(i >= 6){
@@ -174,12 +184,4 @@ public class csMonitorLeft : MonoBehaviour {
 				thisFolder.GetComponent<csFolder>().socket[i].SetActive(true);
 		}
 	}
-
-	void OnMouseDown() {
-		if (Input.GetMouseButtonDown(1)) {
-			Debug.Log("hi");
-		}
-		Debug.Log("hi2");
-	}
-
 }

@@ -20,6 +20,7 @@ public class csActiveButton : MonoBehaviour
 	{
 		if (transform.parent.parent.parent.GetComponent<csFolderMonitor>().isincreased == true)
 		{
+			GameObject.Find("MainLogo").GetComponent<SpriteRenderer>().sortingOrder = 11;
 			transform.parent.parent.parent.GetComponent<csFolderMonitor>().isMinimize = true;
 			transform.parent.parent.parent.parent.FindChild("SetPage").GetComponent<csSetHackPage>().isActive = true;
 		}

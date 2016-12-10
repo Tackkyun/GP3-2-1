@@ -24,8 +24,17 @@ public class csCameraMain : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		transform.position = Vector3.MoveTowards(transform.position, thisPos.position, Time.deltaTime * 1.0f);
-		transform.rotation = Quaternion.Slerp(transform.rotation, thisPos.rotation, Time.deltaTime * 4.0f);
+		if (!(transform.position.x < thisPos.position.x + 0.001f &&
+			transform.position.x > thisPos.position.x - 0.001f &&
+			transform.position.y < thisPos.position.y + 0.001f &&
+			transform.position.y > thisPos.position.y - 0.001f &&
+			transform.position.z < thisPos.position.z + 0.001f &&
+			transform.position.z > thisPos.position.z - 0.001f))
+		{
+			transform.parent.rotation = Quaternion.Slerp(transform.parent.rotation, thisPos.rotation, Time.deltaTime * 4.0f);
+		}
+
+		transform.parent.position = Vector3.MoveTowards(transform.position, thisPos.position, Time.deltaTime * 1.0f);
 
 		if (isStart) {
 			StartGame();

@@ -23,8 +23,8 @@ public class csComputer : MonoBehaviour {
 		{
 			GameObject.Find("sockets").GetComponent<csSockets>().SetActiveButton();
 			if (GameObject.Find("HackPageSprite").GetComponent<csHackPage>().isSuccess) {
-				isHacked = true;
-				GameObject.Find("sockets").GetComponent<csSockets>().HideActiveButton();
+				//isHacked = true;
+				//GameObject.Find("sockets").GetComponent<csSockets>().HideActiveButton();
 				for (int i = 0; i < AZobject.Length; i++)
 				{
 					if (AZobject[i] != null)
